@@ -167,8 +167,8 @@ if len(MEGA_EMAIL) == 0 or len(MEGA_PASSWORD) == 0:
     log_warning('MEGA Credentials not provided!')
     MEGA_EMAIL = ''
     MEGA_PASSWORD = ''
-    AUTHORIZED_CHATS = environ.get('AUTHORIZED_CHATS', '')
-
+    
+AUTHORIZED_CHATS = environ.get('AUTHORIZED_CHATS', '')
 if AUTHORIZED_CHATS:
     aid = AUTHORIZED_CHATS.split()
     for id_ in aid:
