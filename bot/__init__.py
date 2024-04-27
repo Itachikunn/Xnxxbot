@@ -178,16 +178,6 @@ if len(MEGA_EMAIL) == 0 or len(MEGA_PASSWORD) == 0:
     MEGA_EMAIL = ''
     MEGA_PASSWORD = ''
     
-AUTHORIZED_CHATS = environ.get('AUTHORIZED_CHATS', '')
-if AUTHORIZED_CHATS:
-    aid = AUTHORIZED_CHATS.split()
-    for id_ in aid:
-        chat_id, *topic_ids = id_.split(':')
-        chat_id = int(chat_id)
-        user_data.setdefault(chat_id, {'is_auth': True})
-        if topic_ids:
-            user_data[chat_id].setdefault('topic_ids', []).extend(map(int, topic_ids))
-
 FILELION_API = environ.get('FILELION_API', '')
 if len(FILELION_API) == 0:
     FILELION_API = ''
