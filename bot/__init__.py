@@ -123,6 +123,16 @@ if len(TELEGRAM_HASH) == 0:
 GDRIVE_ID = environ.get('GDRIVE_ID', '')
 if len(GDRIVE_ID) == 0:
     GDRIVE_ID = ''
+    
+AUTHORIZED_CHATS = environ.get('AUTHORIZED_CHATS', '')
+if AUTHORIZED_CHATS:
+    aid = AUTHORIZED_CHATS.split()
+    for id_ in aid:
+        chat_id, *topic_ids = id_.split(':')
+        chat_id = int(chat_id)
+        user_data.setdefault(chat_id, {'is_auth': True})
+        if topic_ids:
+            user_data[chat_id].setdefault('topic_ids', []).extend(map(int, topic_ids))
 
 JIODRIVE_TOKEN = environ.get('JIODRIVE_TOKEN', '')
 if len(JIODRIVE_TOKEN) == 0:
