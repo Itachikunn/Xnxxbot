@@ -167,6 +167,16 @@ if len(MEGA_EMAIL) == 0 or len(MEGA_PASSWORD) == 0:
     log_warning('MEGA Credentials not provided!')
     MEGA_EMAIL = ''
     MEGA_PASSWORD = ''
+    AUTHORIZED_CHATS = environ.get('AUTHORIZED_CHATS', '')
+
+if AUTHORIZED_CHATS:
+    aid = AUTHORIZED_CHATS.split()
+    for id_ in aid:
+        chat_id, *topic_ids = id_.split(':')
+        chat_id = int(chat_id)
+        user_data.setdefault(chat_id, {'is_auth': True})
+        if topic_ids:
+            user_data[chat_id].setdefault('topic_ids', []).extend(map(int, topic_ids))
 
 FILELION_API = environ.get('FILELION_API', '')
 if len(FILELION_API) == 0:
@@ -304,6 +314,7 @@ TOKEN_TIMEOUT = int(TOKEN_TIMEOUT) if TOKEN_TIMEOUT.isdigit() else ''
 config_dict = {'AS_DOCUMENT': AS_DOCUMENT,
                'BASE_URL': BASE_URL,
                'BOT_TOKEN': BOT_TOKEN,
+               'AUTHORIZED_CHATS': AUTHORIZED_CHATS,
                'BOT_MAX_TASKS': BOT_MAX_TASKS,
                'CMD_SUFFIX': CMD_SUFFIX,
                'DATABASE_URL': DATABASE_URL,
